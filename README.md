@@ -116,4 +116,17 @@ These findings highlight the importance of evaluating medical image classificati
 
 ## Repository Structure
 
+PneumoVision-AI/
+├── AI_Medical_Image_Analysis_Pneumonia_Detection.ipynb
+├── README.md
+└── requirements.txt
 
+## Installation and Execution
+
+Install the required Python packages using:
+
+```bash
+pip install -r requirements.txt
+```
+
+The project was developed using Google Colab and TensorFlow/Keras. A compatible Python environment is required to execute the notebook.
