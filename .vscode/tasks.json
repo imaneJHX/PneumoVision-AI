@@ -1,0 +1,105 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PneumoVision: Verify environment",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "training.verify_setup"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Prepare existing dataset",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "training.prepare_dataset",
+        "--dataset-dir",
+        "${input:datasetRoot}"
+      ],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Training smoke test",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "training.smoke_test",
+        "--dataset-dir",
+        "${input:datasetRoot}"
+      ],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Train CNN (long run)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "training.train",
+        "--dataset-dir",
+        "${input:datasetRoot}",
+        "--confirm-training"
+      ],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Evaluate model",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "training.evaluate",
+        "--dataset-dir",
+        "${input:datasetRoot}"
+      ],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Run selected experiment (long run)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "training.run_experiment",
+        "--dataset-dir",
+        "${input:datasetRoot}",
+        "--experiment",
+        "${input:experimentName}",
+        "--confirm-training"
+      ],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PneumoVision: Launch dashboard",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "streamlit", "run", "app.py"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": [],
+      "isBackground": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "datasetRoot",
+      "type": "promptString",
+      "description": "Path to the extracted chest_xray dataset root"
+    },
+    {
+      "id": "experimentName",
+      "type": "pickString",
+      "description": "Candidate experiment to train",
+      "options": ["baseline", "class_weighted", "mobilenet_v2"],
+      "default": "baseline"
+    }
+  ]
+}

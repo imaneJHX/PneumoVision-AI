@@ -1,0 +1,39 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local tooling and secrets
+.env
+.env.*
+!.env.example
+.kaggle/
+
+# Datasets and downloader caches
+data/
+dataset/
+datasets/
+.cache/
+
+# Generated training and evaluation artifacts
+models/*.keras
+models/*.h5
+models/*.csv
+models/*.json
+models/*.png
+models/*.txt
+models/checkpoints/
+training/runs/
+
+# Streamlit runtime secrets
+.streamlit/secrets.toml
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log
